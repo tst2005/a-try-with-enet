@@ -1,0 +1,11 @@
+--- ffi_enet.h.extern	2015-07-22 19:47:09.807759805 +0200
++++ header.h.extern	2015-07-22 19:47:48.886317074 +0200
+@@ -1,3 +1,8 @@
++#define extern __declspec( dllexport )
++#define extern __declspec( dllimport )
++#define extern extern
++#define extern extern
++extern "C"
+ extern ENetAcknowledgement * enet_peer_queue_acknowledgement (ENetPeer *, const ENetProtocol *, enet_uint16);
+ extern ENetHost * enet_host_create (const ENetAddress *, size_t, size_t, enet_uint32, enet_uint32);
+ extern ENetIncomingCommand * enet_peer_queue_incoming_command (ENetPeer *, const ENetProtocol *, ENetPacket *, enet_uint32);
