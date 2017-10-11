@@ -32,23 +32,17 @@ local stderr = assert(require"io".stderr)
 -- #include <system/path/to/include.h>
 local function getheader(f)
 	local fd = io.open(f)
-	local data
+	local r = {} -- result
 	while true do
 		local line = fd:read("*l") -- line does not contains the end-of-line
 		if not line then break end
 		local token, a = line:match('^#(%S+)%s*(.*)$')
 		if not ((token == "line") or (token == "include")) then
-			if data then
-				data = data .. "\n" .. line
-			else
-				data = line
-			end
-		--else
-		--	io.stderr:write("token="..token.."\n")
+			table.insert(r, line)
 		end
 	end
 	fd:close()
-	return data 
+	return table.concat(r, "\n") 
 end
 
 local raw_enet = ffi.load(libpath)
